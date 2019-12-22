@@ -1,0 +1,13 @@
+
+.DS_Store
+.idea/
+__pycache__/
+
+venv/
+
+migrations/
+logs/
+*.db
+
+app/static/soundcloud
+app/static/sd_cover_art

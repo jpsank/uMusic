@@ -1,0 +1,4 @@
+<div id="{{ track.id }}" class="track" onclick="parent.setCurrentTrack(this)"
+     data-play="{{ url_for('main.play_track', track_id=track.id) }}">
+    <img src="{{ url_for('main.download_image', track_id=track.id) }}">
+</div>
