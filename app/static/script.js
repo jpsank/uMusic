@@ -45,30 +45,3 @@ function prevButton() {
 
 }
 
-
-
-// function playTrack(trackElem) {
-//     let button = trackElem.querySelector("i");
-//
-//     current_track.innerHTML = trackElem.innerHTML;
-//
-//     source.src = button.getAttribute('data-src');
-//
-//     if (lastButton === button) {
-//         if (audio.paused) {
-//             audio.play();
-//             setPauseIcon(button);
-//         } else {
-//             audio.pause();
-//             audio.currentTime = 0;
-//             setPlayIcon(button);
-//         }
-//     } else {
-//         if (lastButton) setPlayIcon(lastButton);
-//
-//         audio.load();
-//         audio.play();
-//         setPauseIcon(button);
-//     }
-//     lastButton = button;
-// }

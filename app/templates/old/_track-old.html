@@ -1,6 +1,0 @@
-<div id="{{ track.id }}" class="track">
-    <i class="glyphicon glyphicon-play b-play"
-       onclick="parent.playTrack(this.parentElement)"
-       data-src="{{ url_for('main.play_track', track_id=track.id) }}"></i>
-    <img src="{{ url_for('main.download_image', track_id=track.id) }}">
-</div>
