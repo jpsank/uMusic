@@ -4,6 +4,7 @@ const currentImg = document.getElementById('current_img');
 const playBtn = document.getElementById('play');
 const audio = document.getElementById('player');
 const source = document.getElementById('audioSource');
+const progressBar = document.getElementById('audioProgress');
 
 
 // Button Controls //
@@ -88,6 +89,22 @@ function setup() {
 audio.onended = function () {
     playNext();
 };
+
+
+// Progress Bar
+
+function initProgressBar() {
+    if (audio.currentTime) {
+        progressBar.value = (audio.currentTime / audio.duration);
+        progressBar.addEventListener("click", seek);
+    }
+
+    function seek(event) {
+        let percent = event.offsetX / this.offsetWidth;
+        audio.currentTime = percent * audio.duration;
+        progressBar.value = percent / 100;
+    }
+}
 
 
 // Keyboard Controls //

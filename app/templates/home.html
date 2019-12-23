@@ -20,7 +20,7 @@
     <div class="logo">
         <img alt="uMusic" src="{{ url_for('static', filename='uMusic.png') }}">
     </div>
-    <section>
+    <section id="media">
         <div id="current_track">
             <i id="play" class="glyphicon glyphicon-play control-btn b-play"
                onclick="buttonPlay()"></i>
@@ -30,9 +30,12 @@
                onclick="playNext()"></i>
             <img id="current_img">
         </div>
-        <audio id="player">
+        <audio id="player" ontimeupdate="initProgressBar()">
             <source id="audioSource" src="" type="audio/mpeg">
         </audio>
+        <div>
+            <progress id="audioProgress" value="0" max="1"></progress>
+        </div>
     </section>
 
     <template id="track_template">

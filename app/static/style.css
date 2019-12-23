@@ -54,25 +54,32 @@ body {
 
 i.control-btn {
     font-size: 50px;
-    color: white;
+    color: #111;
     cursor: pointer;
+    -webkit-transition: .1s ease color;
+    transition: .1s ease color;
+}
+i.control-btn:hover {
+    color: #555;
+}
+i.control-btn:active {
+    color: white;
 }
 @media (max-width: 700px) {
     i.control-btn {
         font-size: 30px;
     }
 }
-i.b-prev {
+i.b-prev, i.b-next {
     position: absolute;
     text-align: center;
     top: 50%;
+}
+i.b-prev {
     left: 50%;
     transform: translate(calc(-200px - 100%), -50%);
 }
 i.b-next {
-    position: absolute;
-    text-align: center;
-    top: 50%;
     right: 50%;
     transform: translate(calc(200px + 100%), -50%);
 }
@@ -85,13 +92,17 @@ i.b-play {
     transform: translate(-50%, -50%);
 }
 
+
+#media {
+    text-align: center;
+}
+
 #current_track {
     background-color: black;
     height: 400px;
     width: 100%;
     text-align: center;
     position: relative;
-    padding-bottom: 25px;
 }
 #current_track img {
     border-radius: 40px;
@@ -106,6 +117,20 @@ i.b-play {
 #current_track i.b-play:hover {
     color: white;
 }
+
+#audioProgress {
+    cursor: pointer;
+    width: 350px;
+    height: 10px;
+    background-color: #111;
+    color: #555;
+    border-radius: 25px;
+    margin: 20px 0 20px 0;
+}
+#audioProgress::-moz-progress-bar { background-color: #555; }
+#audioProgress::-webkit-progress-bar { background-color: #111; }
+#audioProgress::-webkit-progress-value { background-color: #555; }
+
 
 
 #sentinel {
