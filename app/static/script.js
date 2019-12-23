@@ -60,23 +60,32 @@ function playThisTrack(track) {
 }
 
 function playPrev() {
-    let track = document.querySelector('.track.done:last-child');
-    if (track) {
-        track.classList.remove('done');
-        playThisTrack(track);
+    if (currentTrack) {
+        let track = currentTrack.previousElementSibling;
+        if (track) {
+            track.classList.remove('done');
+            playThisTrack(track);
+        }
     }
 }
 
 function playNext() {
     if (currentTrack) {
         currentTrack.classList.add('done');
+
+        // If we can, play the next track after currentTrack
+        let track = currentTrack.nextElementSibling;
+        if (track) {
+            track.classList.remove('done');
+            playThisTrack(track);
+            return;
+        }
     }
 
+    // Otherwise, play the first track that hasn't already been played
     let track = document.querySelector('.track:not(.done)');
     if (track) {
         playThisTrack(track);
-    } else {
-        console.log('No next track')
     }
 }
 
