@@ -22,12 +22,12 @@
     </div>
     <section>
         <div id="current_track">
-            <i id="play" class="glyphicon glyphicon-play b-play"
-               onclick="playButton()"></i>
-{#            <i id="prev" class="glyphicon glyphicon-fast-backward b-prev"#}
-{#               onclick="prevButton()"></i>#}
-{#            <i id="next" class="glyphicon glyphicon-fast-forward b-next"#}
-{#               onclick="nextButton()"></i>#}
+            <i id="play" class="glyphicon glyphicon-play control-btn b-play"
+               onclick="buttonPlay()"></i>
+            <i id="prev" class="glyphicon glyphicon glyphicon-step-backward control-btn b-prev"
+               onclick="playPrev()"></i>
+            <i id="next" class="glyphicon glyphicon glyphicon-step-forward control-btn b-next"
+               onclick="playNext()"></i>
             <img id="current_img">
         </div>
         <audio id="player">
@@ -36,14 +36,13 @@
     </section>
 
     <template id="track_template">
-        <div class="track" onclick="parent.setCurrentTrack(this)">
+        <div class="track" onclick="playThisTrack(this)">
             <img>
         </div>
     </template>
-    <div id="scroller" class="flex">
-    </div>
-    <div class="d-flex justify-content-center mb-3" id="sentinel">
-        <div class="spinner-border" role="status"></div>
+    <div id="scroller" class="flex"></div>
+    <div id="sentinel">
+        <p id="title"></p>
     </div>
 
 {% endblock %}

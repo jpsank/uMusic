@@ -31,6 +31,9 @@ body {
 .track img {
     width: 100%;
 }
+.track.done img {
+    opacity: 50%;
+}
 
 @media (max-width: 1000px) {
     .track {
@@ -49,8 +52,32 @@ body {
 }
 
 
-i.b-play {
+i.control-btn {
+    font-size: 50px;
+    color: white;
     cursor: pointer;
+}
+@media (max-width: 700px) {
+    i.control-btn {
+        font-size: 30px;
+    }
+}
+i.b-prev {
+    position: absolute;
+    text-align: center;
+    top: 50%;
+    left: 50%;
+    transform: translate(calc(-200px - 100%), -50%);
+}
+i.b-next {
+    position: absolute;
+    text-align: center;
+    top: 50%;
+    right: 50%;
+    transform: translate(calc(200px + 100%), -50%);
+}
+i.b-play {
+    font-size: 10em;
     position: absolute;
     text-align: center;
     top: 50%;
@@ -72,12 +99,18 @@ i.b-play {
     width: auto;
 }
 #current_track i.b-play {
-    font-size: 10em;
-
     color: transparent;
     -webkit-transition: .1s ease color;
     transition: .1s ease color;
 }
 #current_track i.b-play:hover {
+    color: white;
+}
+
+
+#sentinel {
+    height: 50px;
+}
+#sentinel #title {
     color: white;
 }

@@ -35,7 +35,7 @@ class Track(Base):
 
     def serialize(self):
         return {
-            # 'id': self.id,
+            'id': self.id,
             # 'album_id': self.album_id,
             # 'artist_id': self.artist_id,
             # 'name': self.name,
