@@ -20,6 +20,9 @@ body {
 }
 
 
+
+/* Track Elements */
+
 .track {
     width: 10%;
     position: relative;
@@ -52,6 +55,9 @@ body {
 }
 
 
+
+/* Audio Control Buttons */
+
 i.control-btn {
     font-size: 50px;
     color: #111;
@@ -65,9 +71,9 @@ i.control-btn:hover {
 i.control-btn:active {
     color: white;
 }
-@media (max-width: 700px) {
+@media (max-width: 500px) {
     i.control-btn {
-        font-size: 30px;
+        font-size: 10vw;
     }
 }
 i.b-prev, i.b-next {
@@ -91,7 +97,20 @@ i.b-play {
     left: 50%;
     transform: translate(-50%, -50%);
 }
+@media (max-width: 600px) {
+    i.b-prev {
+        left: 0;
+        transform: translate(0, -50%);
+    }
+    i.b-next {
+        right: 0;
+        transform: translate(0, -50%);
+    }
+}
 
+
+
+/* Audio Control Elements */
 
 #media {
     text-align: center;
@@ -120,6 +139,15 @@ i.b-play {
 #current_track i.b-play.glyphicon-play {
     color: white;
 }
+@media (max-width: 500px) {
+    #current_track {
+        height: auto;
+    }
+    #current_track img {
+        width: 80%;
+        height: auto;
+    }
+}
 
 #audioProgress {
     cursor: pointer;
@@ -135,6 +163,7 @@ i.b-play {
 #audioProgress::-webkit-progress-value { background-color: #555; }
 
 
+/* Scrolling */
 
 #sentinel {
     height: 50px;
