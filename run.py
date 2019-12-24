@@ -1,7 +1,7 @@
 from app import app, db, cli
 from app.models import Track, Album, Artist
 
-cli.register(app)
+cli.register(app.cli)
 
 
 @app.shell_context_processor
