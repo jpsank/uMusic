@@ -3,51 +3,41 @@ from app.models import Track, Album, Artist
 
 from app.scrape.util import get_tags
 
-import os, json
+import os
 
 
 SD_FOLDER = app.config['SOUNDCLOUD_FOLDER']
 IMAGE_FOLDER = app.config['SOUNDCLOUD_IMAGE_FOLDER']
 
 
-def create_new_track(name, artist_name=None, album_name=None):
-    artist = None
-    album = None
-    path = ''
-    # If has artist, add artist folder to the path and create artist object
-    if artist_name is not None:
-        path = os.path.join(path, artist_name)
-
-        artist = Artist.get_or_create(name=artist_name)
-    # If in album, add album folder to the path and create album object
-    if album_name is not None:
-        path = os.path.join(path, album_name)
-
-        album = Album.get_or_create(name=album_name)
-    # Add mp3 file to the path
-    path = os.path.join(path, name)
+def create_new_track(path):
 
     # Get ID3 metadata on mp3 file
     full_path = os.path.join(SD_FOLDER, path)
     id3_tags = get_tags(full_path)
 
+    title = id3_tags.get("title")  # Retrieve title from ID3
+    artist_name = id3_tags.get("artist")  # Retrieve artist from ID3
+    album_name = id3_tags.get("album")  # Retrieve album from ID3
     id3_genre = id3_tags.get("genre")  # Retrieve genre from ID3
-    id3_title = id3_tags.get("title")  # Retrieve title from ID3
     id3_release_date = id3_tags.get("date")  # Retrieve release date from ID3
     id3_cover = id3_tags.get("cover")  # Retrieve cover art image data from ID3
 
     # Construct track object
-    track = Track.get_or_create(name=name, path=path)
-    if artist is not None:
+    track = Track.get_or_create(path=path)
+    track.title = title
+
+    # Set Artist and Album objects
+    if artist_name is not None:
+        artist = Artist.get_or_create(name=artist_name)
         track.artist = artist
-    if album is not None:
-        album.artist = artist
+    if album_name is not None:
+        album = Album.get_or_create(name=album_name, artist_name=artist_name)
         track.album = album
 
-    # Populate ID3 columns
-    track.id3_genre = id3_genre
-    track.id3_title = id3_title
-    track.id3_release_date = id3_release_date
+    # Populate other ID3 columns
+    track.genre = id3_genre
+    track.release_date = id3_release_date
 
     # If ID3 contained cover art, create image file
     if id3_cover is not None:
@@ -61,16 +51,18 @@ def create_new_track(name, artist_name=None, album_name=None):
     return track
 
 
-def add_tracks_recur(folder, sub_folders=()):
-    for name in os.listdir(folder):
+def add_tracks_recur(folder=""):
+    abs_folder = os.path.join(SD_FOLDER, folder)
+    for name in os.listdir(abs_folder):
+        abs_path = os.path.join(abs_folder, name)
         path = os.path.join(folder, name)
-        if os.path.isdir(path):
-            add_tracks_recur(path, sub_folders=[*sub_folders, name])
+        if os.path.isdir(abs_path):
+            add_tracks_recur(path)
         elif os.path.splitext(name)[1] == ".mp3":
-            track = create_new_track(name, *sub_folders)
+            track = create_new_track(path)
             db.session.merge(track)
     db.session.commit()
 
 
 if __name__ == '__main__':
-    add_tracks_recur(SD_FOLDER)
+    add_tracks_recur()

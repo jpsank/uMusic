@@ -15,23 +15,23 @@ class Base(db.Model):
 
 class Track(Base):
     id = db.Column(db.Integer, primary_key=True)
-    album_id = db.Column(db.Integer, db.ForeignKey('album.id'))
-    artist_id = db.Column(db.Integer, db.ForeignKey('artist.id'))
-
-    name = db.Column(db.String)
     path = db.Column(db.String, unique=True)
 
+    title = db.Column(db.String, nullable=True)
+    artist_name = db.Column(db.String, db.ForeignKey('artist.name'), nullable=True)
+    album_name = db.Column(db.String, db.ForeignKey('album.name'), nullable=True)
+
+    genre = db.Column(db.String, nullable=True)
+    release_date = db.Column(db.String, nullable=True)
+
     image_path = db.Column(db.String, nullable=True)
-    id3_genre = db.Column(db.String, nullable=True)
-    id3_title = db.Column(db.String, nullable=True)
-    id3_release_date = db.Column(db.String, nullable=True)
 
     @staticmethod
-    def get_or_create(name, path):
+    def get_or_create(path):
         already_existing = Track.query.filter_by(
-            name=name, path=path
+            path=path
         ).first()
-        return already_existing if already_existing is not None else Track(name=name, path=path)
+        return already_existing if already_existing is not None else Track(path=path)
 
     def serialize(self):
         return {
@@ -52,18 +52,18 @@ class Track(Base):
 
 class Album(Base):
     id = db.Column(db.Integer, primary_key=True)
-    artist_id = db.Column(db.Integer, db.ForeignKey('artist.id'))
+    artist_name = db.Column(db.Integer, db.ForeignKey('artist.name'))
 
     name = db.Column(db.String)
 
     tracks = db.relationship('Track', backref='album')
 
     @staticmethod
-    def get_or_create(name):
+    def get_or_create(name, artist_name):
         already_existing = Album.query.filter_by(
-            name=name
+            name=name, artist_name=artist_name
         ).first()
-        return already_existing if already_existing is not None else Album(name=name)
+        return already_existing if already_existing is not None else Album(name=name, artist_name=artist_name)
 
 
 class Artist(Base):

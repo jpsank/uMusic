@@ -4,6 +4,7 @@ from mutagen.id3 import ID3 as OldID3
 
 import requests, os
 import re
+import unicodedata
 
 
 # File Utility
@@ -18,7 +19,9 @@ def sanitize_filename(filename):
     """
     Make sure filenames are valid paths.
     """
-    sanitized_filename = re.sub(r'[/\\:*?"<>|]', '-', filename)
+    sanitized_filename = unicodedata.normalize('NFKD', filename).encode('ascii', 'ignore').decode()
+
+    sanitized_filename = re.sub(r'[/\\:*?"<>|]', '-', sanitized_filename)
     # sanitized_filename = sanitized_filename.replace('&', 'and')
     sanitized_filename = sanitized_filename.replace('"', '')
     sanitized_filename = sanitized_filename.replace("'", '')
