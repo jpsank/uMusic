@@ -2,7 +2,7 @@ from datetime import datetime
 from hashlib import md5
 from time import time
 from flask import current_app, url_for, escape
-import json, os
+import json
 
 from app import app, db, basedir
 
@@ -45,10 +45,8 @@ class Track(Base):
             # 'id3_title': self.id3_title,
             # 'id3_release_date': self.id3_release_date,
 
-            # 'audio_url': url_for('main.play_track', track_id=self.id),
-            # 'image_url': url_for('main.download_image', track_id=self.id)
-            'audio_url': url_for('static', filename=os.path.join('soundcloud', self.path)),
-            'image_url': url_for('static', filename=os.path.join('sd_cover_art', self.image_path))
+            'audio_url': url_for('main.play_track', track_id=self.id),
+            'image_url': url_for('main.download_image', track_id=self.id)
         }
 
 
