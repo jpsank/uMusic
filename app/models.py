@@ -36,14 +36,11 @@ class Track(Base):
     def serialize(self):
         return {
             'id': self.id,
-            # 'album_id': self.album_id,
-            # 'artist_id': self.artist_id,
-            # 'name': self.name,
-            # 'path': self.path,
-            # 'image_path': self.image_path,
-            # 'id3_genre': self.id3_genre,
-            # 'id3_title': self.id3_title,
-            # 'id3_release_date': self.id3_release_date,
+            'title': self.title,
+            'artist_name': self.artist_name,
+            'album_name': self.album_name,
+            'genre': self.genre,
+            'release_date': self.release_date,
 
             'audio_url': url_for('main.play_track', track_id=self.id),
             'image_url': url_for('main.download_image', track_id=self.id)

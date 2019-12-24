@@ -42,17 +42,18 @@ def download_charts(kind='top', genre='danceedm', region='US', limit=100):
 
 def minimize_track(track):
 
+    # Get artist and album data
     artist = None
     album = None
     if track.get('publisher_metadata'):
         artist = track['publisher_metadata'].get('artist')
         album = track['publisher_metadata'].get('album')
-
     if not artist:
         artist = track['user'].get('full_name')
     if not artist:
         artist = track['user']['username']
 
+    # Get transcoding data
     transcodings = []
     for tc in track['media']['transcodings']:
         protocol = tc['format']['protocol']
@@ -61,15 +62,22 @@ def minimize_track(track):
                 'url': tc['url']
             })
 
+    # Get artwork url data
+    artwork_url = track.get('artwork_url')
+    if artwork_url is None:
+        artwork_url = track['user'].get('avatar_url')  # Fall back on avatar url
+
+    # Assemble minimized track object
     t_track = {
         'title': track['title'],
-        'user': {'username': track['user']['username']},
+        'album': album,
+        'artist': artist,
+
         'release_date': track['release_date'],
         'genre': track['genre'],
-        'artwork_url': track['artwork_url'],
-        'media': {'transcodings': transcodings},
-        'album': album,
-        'artist': artist
+
+        'artwork_url': artwork_url,
+        'media': {'transcodings': transcodings}
     }
     return t_track
 
@@ -107,7 +115,7 @@ def download_track(t_track):
         f.write(res.content)
 
     tagged = tag_file(filepath,
-                      artist=t_track['user']['username'],
+                      artist=t_track['artist'],
                       title=t_track['title'],
                       date=t_track['release_date'],
                       genre=t_track['genre'],
