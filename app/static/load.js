@@ -6,9 +6,11 @@ const sentinel = document.querySelector('#sentinel');
 
 
 let counter = 0;
+let loading = false;
 
 // Function to request new items and render to the dom
 function loadItems() {
+    loading = true;
     fetch(`load?c=${counter}`).then((response) => {
         response.json().then((data) => {
             if (!data.length) {
@@ -29,6 +31,8 @@ function loadItems() {
                 counter += 1;
             }
         })
+    }).then(() => {
+        loading = false;
     })
 }
 
@@ -42,7 +46,8 @@ let intersectionObserver = new IntersectionObserver(entries => {
         return;
     }
 
-    loadItems();
+    if (!loading)
+        loadItems();
 });
 
 // Instruct the IntersectionObserver to watch the sentinel
