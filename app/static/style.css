@@ -9,7 +9,6 @@ body {
     text-align: center;
 }
 .logo img {
-    color: white;
     width: 20vw;
 }
 
@@ -105,6 +104,25 @@ i.b-play {
     i.b-next {
         right: 0;
         transform: translate(0, -50%);
+    }
+}
+
+i.b-shuffle {
+    font-size: 35px;
+    color: #444;
+    position: absolute;
+    right: 4vw;
+    top: 4vw;
+}
+i.b-shuffle:hover {
+    color: #aaa;
+}
+i.b-shuffle:active {
+    color: white;
+}
+@media (max-width: 700px) {
+    i.b-shuffle {
+        font-size: 25px;
     }
 }
 

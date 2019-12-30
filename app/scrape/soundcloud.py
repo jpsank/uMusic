@@ -64,7 +64,7 @@ def minimize_track(track):
 
     # Get artwork url data
     artwork_url = track.get('artwork_url')
-    if artwork_url is None:
+    if not artwork_url:
         artwork_url = track['user'].get('avatar_url')  # Fall back on avatar url
 
     # Assemble minimized track object

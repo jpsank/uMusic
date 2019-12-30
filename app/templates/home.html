@@ -21,6 +21,7 @@
         <img alt="uMusic" src="{{ url_for('static', filename='uMusic.png') }}">
     </div>
     <section id="media">
+        <i id="shuffle" class="glyphicon glyphicon-random control-btn b-shuffle" onclick="shuffle()"></i>
         <div id="current_track">
             <i id="play" class="glyphicon glyphicon-play control-btn b-play"
                onclick="buttonPlay()"></i>
@@ -52,6 +53,7 @@
 
 {% block scripts %}
     {{ super() }}
+    <script src="{{ url_for('static', filename='dom.js') }}"></script>
     <script src="{{ url_for('static', filename='script.js') }}"></script>
     <script src="{{ url_for('static', filename='load.js') }}"></script>
 {% endblock %}

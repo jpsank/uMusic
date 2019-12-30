@@ -27,9 +27,9 @@ def index():
     return render_template('home.html', title='Home')
 
 
-def get_some_tracks(counter=0, quantity=app.config['TRACKS_PER_PAGE'], genre='all'):
+def get_some_tracks(counter=0, quantity=app.config['TRACKS_PER_PAGE'], genre=None):
     tracks = Track.query
-    if genre != 'all':
+    if genre is not None:
         tracks = tracks.filter_by(genre=genre)
     tracks = tracks.offset(counter).limit(quantity)
     return tracks

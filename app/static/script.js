@@ -1,12 +1,4 @@
 
-// Retrieve dom elements
-const currentImg = document.getElementById('current_img');
-const playBtn = document.getElementById('play');
-const audio = document.getElementById('player');
-const source = document.getElementById('audioSource');
-const progressBar = document.getElementById('audioProgress');
-
-
 // Button Controls //
 
 function setPauseIcon() {
@@ -131,3 +123,11 @@ document.addEventListener("keydown", function(e) {
 });
 
 
+
+// Shuffle tracks
+
+function shuffle() {
+    for (let i = scroller.children.length; i >= 0; i--) {
+        scroller.appendChild(scroller.children[Math.random() * i | 0]);
+    }
+}

@@ -1,10 +1,4 @@
 
-// Retrieve dom elements
-const scroller = document.querySelector("#scroller");
-const template = document.querySelector('#track_template');
-const sentinel = document.querySelector('#sentinel');
-
-
 let counter = 0;
 let loading = false;
 
@@ -46,8 +40,9 @@ let intersectionObserver = new IntersectionObserver(entries => {
         return;
     }
 
-    if (!loading)
+    if (!loading) {
         loadItems();
+    }
 });
 
 // Instruct the IntersectionObserver to watch the sentinel
