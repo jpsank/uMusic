@@ -2,20 +2,19 @@ import os
 basedir = os.path.abspath(os.path.dirname(__file__))
 
 
-class Config(object):
-    SECRET_KEY = 'you-will-never-guess'
-    SESSION_TYPE = 'sqlalchemy'
+# Configuration
 
-    SQLALCHEMY_DATABASE_URI = 'sqlite:///' + os.path.join(basedir, 'app.db')
-    SQLALCHEMY_TRACK_MODIFICATIONS = False
+SESSION_TYPE = 'sqlalchemy'
 
-    ADMINS = ['julian@sankergroup.org']
+LOGS_PATH = os.path.join(basedir, 'logs')
 
-    SENTRY_DSN = None
+SQLALCHEMY_DATABASE_URI = 'sqlite:///' + os.path.join(basedir, 'app.db')
+SQLALCHEMY_TRACK_MODIFICATIONS = False
 
-    TRACKS_PER_PAGE = 56
+ADMINS = ['julian@sankergroup.org']
 
-    SOUNDCLOUD_CLIENT_ID = "YUKXoArFcqrlQn9tfNHvvyfnDISj04zk"
-    SOUNDCLOUD_FOLDER = os.path.join(basedir, 'app/static/soundcloud/')
-    SOUNDCLOUD_IMAGE_FOLDER = os.path.join(basedir, 'app/static/sd_cover_art/')
+TRACKS_PER_PAGE = 56
+
+SOUNDCLOUD_FOLDER = os.path.join(basedir, 'app/static/soundcloud/')
+SOUNDCLOUD_IMAGE_FOLDER = os.path.join(basedir, 'app/static/sd_cover_art/')
 

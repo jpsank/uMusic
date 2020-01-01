@@ -127,6 +127,7 @@ document.addEventListener("keydown", function(e) {
 // Shuffle tracks
 
 function shuffle() {
+    // Fisher-Yates shuffle
     for (let i = scroller.children.length; i >= 0; i--) {
         scroller.appendChild(scroller.children[Math.random() * i | 0]);
     }

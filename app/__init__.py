@@ -13,22 +13,29 @@ from flask_migrate import Migrate
 from flask_bootstrap import Bootstrap
 from flask_moment import Moment
 
-from config import Config, basedir
+import config
+from config import basedir
 
 
-if Config.SENTRY_DSN:
+# Create application
+app = Flask(__name__, instance_relative_config=True)
+app.config.from_object(config)
+app.config.from_pyfile('config.py')
+
+# Initialize Sentry if possible
+if app.config['SENTRY_DSN']:
     sentry_sdk.init(
-        dsn=Config.SENTRY_DSN,
+        dsn=app.config['SENTRY_DSN'],
         integrations=[FlaskIntegration(), SqlalchemyIntegration()]
     )
-if not os.path.exists(Config.SOUNDCLOUD_FOLDER):
-    os.mkdir(Config.SOUNDCLOUD_FOLDER)
-if not os.path.exists(Config.SOUNDCLOUD_IMAGE_FOLDER):
-    os.mkdir(Config.SOUNDCLOUD_IMAGE_FOLDER)
+# Initialize folders
+if not os.path.exists(app.config['SOUNDCLOUD_FOLDER']):
+    os.mkdir(app.config['SOUNDCLOUD_FOLDER'])
+if not os.path.exists(app.config['SOUNDCLOUD_IMAGE_FOLDER']):
+    os.mkdir(app.config['SOUNDCLOUD_IMAGE_FOLDER'])
 
 
-app = Flask(__name__)
-app.config.from_object(Config)
+# Set up Flask modules
 
 db = SQLAlchemy(app)
 
@@ -39,17 +46,22 @@ migrate = Migrate(app, db)
 bootstrap = Bootstrap(app)
 moment = Moment(app)
 
+
+# Blueprints
+
 from app.errors import bp as errors_bp
 app.register_blueprint(errors_bp)
 
 from app.main import bp as main_bp
 app.register_blueprint(main_bp)
 
+
+# Set logging
+
 if not app.debug and not app.testing:
-    logs_path = os.path.join(basedir, 'logs')
-    if not os.path.exists(logs_path):
-        os.mkdir(logs_path)
-    file_handler = RotatingFileHandler(os.path.join(logs_path, 'umusic.log'),
+    if not os.path.exists(app.config['LOGS_PATH']):
+        os.mkdir(app.config['LOGS_PATH'])
+    file_handler = RotatingFileHandler(os.path.join(app.config['LOGS_PATH'], 'umusic.log'),
                                        maxBytes=10240, backupCount=10)
     file_handler.setFormatter(logging.Formatter(
         '%(asctime)s %(levelname)s: %(message)s '
