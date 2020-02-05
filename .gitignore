@@ -11,3 +11,5 @@ logs/
 
 app/static/soundcloud
 app/static/sd_cover_art
+
+instance/
