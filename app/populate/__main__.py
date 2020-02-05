@@ -64,5 +64,9 @@ def add_tracks_recur(folder=""):
     db.session.commit()
 
 
-if __name__ == '__main__':
+def populate():
     add_tracks_recur()
+
+
+if __name__ == '__main__':
+    populate()

@@ -19,6 +19,10 @@ def register(cli):
         from app.scrape import soundcloud
         soundcloud.download_charts(genre=genre, limit=count)
 
+    @cli.command()
+    def populate():
+        import app.populate
+
 
 @click.group()
 def main_cli():

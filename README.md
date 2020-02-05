@@ -44,7 +44,7 @@ This will create the SQLite3 database to store tracks, artists, and albums.
 
 ### ```scrape```
 
-Scrape tracks and add them to the database with the following sample command:
+Scrape tracks to mp3 files with the following sample command:
 
 ```
 flask scrape --genre danceedm 100
@@ -56,7 +56,7 @@ or
 python -m app.cli scrape --genre danceedm 100
 ```
 
-This will scrape the top 100 tracks in the SoundCloud "danceedm" genre and insert them into the database.
+This will scrape the top 100 tracks in the SoundCloud "danceedm" genre to the SOUNDCLOUD_FOLDER directory.
 
 List of available genres:
  - all-music
@@ -104,6 +104,22 @@ List of available genres:
  - technology
 
 (from [this StackOverflow question](https://stackoverflow.com/questions/35688367/access-soundcloud-charts-with-api))
+
+### ```populate```
+
+Take mp3 files from the SOUNDCLOUD_FOLDER, extract cover art images, and insert them into the database.
+
+```
+flask populate
+```
+
+or
+
+```
+python -m app.cli populate
+```
+
+This is necessary for the tracks to show up on the website.
 
 ## Website
 
