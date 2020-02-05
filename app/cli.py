@@ -21,7 +21,8 @@ def register(cli):
 
     @cli.command()
     def populate():
-        import app.populate
+        from app.populate import populate
+        populate.add_tracks_recur()
 
 
 @click.group()
